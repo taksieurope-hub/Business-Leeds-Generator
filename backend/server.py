@@ -889,6 +889,29 @@ async def search_business(search: BusinessSearchRequest, request: Request):
     
     return {"results": results}
 
+# Lead Status Update
+@api_router.patch("/leads/{lead_id}/status")
+async def update_lead_status(lead_id: str, request: Request):
+    user = await get_current_user(request)
+    user_id = str(user["_id"])
+    
+    body = await request.json()
+    new_status = body.get("status")
+    
+    valid_statuses = ["new", "viewed", "contacted", "interested", "closed", "not_interested"]
+    if new_status not in valid_statuses:
+        raise HTTPException(status_code=400, detail="Invalid status")
+    
+    result = await db.assigned_leads.update_one(
+        {"id": lead_id, "user_id": user_id},
+        {"$set": {"lead_status": new_status}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Lead not found")
+    
+    return {"success": True, "status": new_status}
+
 # Stats Routes
 @api_router.get("/stats")
 async def get_stats(request: Request):
@@ -948,6 +971,7 @@ async def startup_event():
     await db.users.create_index("email", unique=True)
     await db.assigned_leads.create_index([("user_id", 1), ("business_name", 1), ("address", 1)])
     await db.payments.create_index("user_id")
+await db.assigned_leads.create_index([("user_id", 1), ("lead_status", 1)])
     
     # Seed lifetime access users
     for email in LIFETIME_ACCESS_EMAILS:

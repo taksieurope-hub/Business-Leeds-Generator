@@ -780,6 +780,7 @@ const DashboardPage = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [searching, setSearching] = useState(false);
+  const [activeTab, setActiveTab] = useState("all");
 
   useEffect(() => {
     fetchData();
@@ -813,6 +814,18 @@ const DashboardPage = () => {
       }
     } finally {
       setGenerating(false);
+    }
+  };
+
+const updateLeadStatus = async (leadId, status) => {
+    try {
+      await axios.patch(`${API}/leads/${leadId}/status`, { status }, { withCredentials: true });
+      setLeads(prev => prev.map(l => l.id === leadId ? { ...l, lead_status: status } : l));
+      if (selectedLead?.id === leadId) {
+        setSelectedLead(prev => ({ ...prev, lead_status: status }));
+      }
+    } catch (err) {
+      console.error('Failed to update status', err);
     }
   };
 
@@ -998,9 +1011,35 @@ const DashboardPage = () => {
 
         {/* Leads List */}
         <div>
-          <h3 className="font-outfit text-2xl font-semibold mb-6">Your Leads</h3>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="font-outfit text-2xl font-semibold">Your Leads</h3>
+          </div>
+          {/* Status Tabs */}
+          <div className="flex gap-2 mb-6 flex-wrap">
+            {[
+              { key: "all", label: "All" },
+              { key: "new", label: "New" },
+              { key: "viewed", label: "Viewed" },
+              { key: "contacted", label: "Contacted" },
+              { key: "interested", label: "Interested" },
+              { key: "closed", label: "Closed" },
+              { key: "not_interested", label: "Not Interested" }
+            ].map(tab => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                  activeTab === tab.key
+                    ? 'bg-[#0055FF] text-white'
+                    : 'bg-[#121212] text-[#A1A1AA] border border-white/10 hover:border-white/30'
+                }`}
+              >
+                {tab.label} ({leads.filter(l => tab.key === 'all' ? true : (l.lead_status || 'new') === tab.key).length})
+              </button>
+            ))}
+          </div>
           
-          {leads.length === 0 ? (
+          {leads.filter(l => activeTab === 'all' ? true : (l.lead_status || 'new') === activeTab).length === 0 ? (
             <div className="text-center py-16 bg-[#121212] border border-white/10 rounded-md">
               <Target weight="duotone" className="w-16 h-16 text-[#0055FF] mx-auto mb-4" />
               <h4 className="font-outfit text-xl font-semibold mb-2">No Leads Yet</h4>
@@ -1008,7 +1047,7 @@ const DashboardPage = () => {
             </div>
           ) : (
             <div className="grid gap-4">
-              {leads.map((lead, i) => (
+              {leads.filter(l => activeTab === 'all' ? true : (l.lead_status || 'new') === activeTab).map((lead, i) => (
                 <div 
                   key={lead.id || i}
                   className="p-6 bg-[#121212] border border-white/10 rounded-md hover:border-[#0055FF]/30 transition-all cursor-pointer"
@@ -1057,17 +1096,19 @@ const DashboardPage = () => {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      {lead.has_website ? (
-                        <span className="mono-label text-xs bg-[#00E676]/20 text-[#00E676] px-3 py-1 rounded border border-[#00E676]/20">
-                          NEEDS UPDATE
-                        </span>
-                      ) : (
-                        <span className="mono-label text-xs bg-[#FF3B30]/20 text-[#FF3B30] px-3 py-1 rounded border border-[#FF3B30]/20">
-                          HIGH PRIORITY
-                        </span>
-                      )}
-                      <CaretDown weight="bold" className="w-5 h-5 text-[#A1A1AA]" />
+                    <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
+                      <select
+                        value={lead.lead_status || 'new'}
+                        onChange={e => updateLeadStatus(lead.id, e.target.value)}
+                        className="px-3 py-1.5 bg-[#0A0A0A] border border-white/20 rounded-md text-sm text-white focus:border-[#0055FF] focus:outline-none"
+                      >
+                        <option value="new">New</option>
+                        <option value="viewed">Viewed</option>
+                        <option value="contacted">Contacted</option>
+                        <option value="interested">Interested</option>
+                        <option value="closed">Closed</option>
+                        <option value="not_interested">Not Interested</option>
+                      </select>
                     </div>
                   </div>
                 </div>
