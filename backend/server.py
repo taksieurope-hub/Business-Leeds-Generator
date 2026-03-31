@@ -518,7 +518,7 @@ async def login(user_data: UserLogin, response: Response):
     access_token = create_access_token(user_id, email)
     refresh_token = create_refresh_token(user_id)
     
-    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=False, samesite="lax", max_age=3600, path="/")
+    response.set_cookie(key="access_token", value=access_token, httponly=True, secure=True, samesite="none", max_age=3600, path="/")
     response.set_cookie(key="refresh_token", value=refresh_token, httponly=True, secure=False, samesite="lax", max_age=604800, path="/")
     
     return {
@@ -924,7 +924,7 @@ app.include_router(api_router)
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://business-leeds-generator-1.onrender.com"],
+    allow_origins=["https://business-leeds-generator-1.onrender.com", "https://business-leeds-generator.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
