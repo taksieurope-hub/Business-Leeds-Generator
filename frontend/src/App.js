@@ -703,7 +703,7 @@ const SignupPage = () => {
           </form>
         ) : (
           <div className="space-y-6">
-            <<div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center mb-4">
                 <span className="text-[#A1A1AA]">{currentPlan.label}</span>
                 <span className="font-outfit text-2xl font-bold">${currentPlan.price}</span>
               </div>
