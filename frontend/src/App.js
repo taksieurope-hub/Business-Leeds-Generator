@@ -703,15 +703,14 @@ const SignupPage = () => {
           </form>
         ) : (
           <div className="space-y-6">
-            <div className="p-6 bg-[#121212] border border-white/10 rounded-md">
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-[#A1A1AA]">Starter Pack</span>
-                <span className="font-outfit text-2xl font-bold">$35</span>
+            <<div className="flex justify-between items-center mb-4">
+                <span className="text-[#A1A1AA]">{currentPlan.label}</span>
+                <span className="font-outfit text-2xl font-bold">${currentPlan.price}</span>
               </div>
               <ul className="space-y-2 text-sm text-[#A1A1AA]">
                 <li className="flex items-center gap-2">
                   <Check weight="bold" className="w-4 h-4 text-[#00E676]" />
-                  350 qualified leads
+                  {currentPlan.leads} qualified leads
                 </li>
                 <li className="flex items-center gap-2">
                   <Check weight="bold" className="w-4 h-4 text-[#00E676]" />
@@ -730,8 +729,8 @@ const SignupPage = () => {
                 createOrder={(data, actions) => {
                   return actions.order.create({
                     purchase_units: [{
-                      amount: { value: "35.00" },
-                      description: "LeadGen Pro - Starter Pack (350 Leads)"
+                      amount: { value: currentPlan.price },
+                      description: `LeadGen Pro - ${currentPlan.label} (${currentPlan.leads} Leads)`
                     }]
                   });
                 }}
@@ -819,7 +818,7 @@ const DashboardPage = () => {
   const handleRefillPayment = async (orderID) => {
     try {
       await axios.post(`${API}/payments/process`, {
-        payment_type: 'monthly',
+        payment_type: 'refill',
         paypal_order_id: orderID,
         amount: 10.00
       }, { withCredentials: true });
