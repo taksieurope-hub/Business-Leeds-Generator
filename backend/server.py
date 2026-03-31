@@ -96,7 +96,7 @@ def generate_likely_email(business_name: str, website: str = None) -> str:
     return f"info@{clean_name}.com"
 
 # MongoDB connection
-mongo_url = os.environ.get('MONGO_URL', '')
+mongo_url = os.environ.get('MONGO_URL', 'mongodb+srv://gawaineelainehzmb_db_user:DfPEpULr59CY0vBF@cluster0.doxqdxt.mongodb.net/leadgen?appName=Cluster0')
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ.get('DB_NAME', 'leadgen')]
 
