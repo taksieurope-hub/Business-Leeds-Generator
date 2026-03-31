@@ -838,7 +838,7 @@ async def generate_leads(request: Request):
     }
 
 @api_router.get("/leads")
-async def get_my_leads(request: Request, skip: int = 0, limit: int = 50):
+async def get_my_leads(request: Request, skip: int = 0, limit: int = 10000):
     user = await get_current_user(request)
     user_id = str(user["_id"])
     
