@@ -789,7 +789,7 @@ const DashboardPage = () => {
   const fetchData = async () => {
     try {
       const [leadsRes, statsRes] = await Promise.all([
-        axios.get(`${API}/leads`, { withCredentials: true }),
+        axios.get(`${API}/leads?limit=10000`, { withCredentials: true }),
         axios.get(`${API}/stats`, { withCredentials: true })
       ]);
       setLeads(leadsRes.data.leads);
