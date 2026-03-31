@@ -924,8 +924,8 @@ app.include_router(api_router)
 # CORS
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=["https://business-leeds-generator-1.onrender.com"],
     allow_credentials=True,
-    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
