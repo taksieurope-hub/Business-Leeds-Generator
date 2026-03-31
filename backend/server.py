@@ -582,7 +582,7 @@ async def process_payment(payment: PaymentCreate, request: Request):
     }
     await db.payments.insert_one(payment_doc)
     
-    # Update user status
+    
     new_status = "active"
     await db.users.update_one(
         {"_id": ObjectId(user_id)},
