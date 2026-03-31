@@ -29,9 +29,9 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
-mongo_url = os.environ['MONGO_URL']
+mongo_url = 'mongodb+srv://gawaineelainehzmb_db_user:DfPEpULr59CY0vBF@cluster0.doxqdxt.mongodb.net/leadgen?appName=Cluster0'
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db = client['leadgen']
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -328,23 +328,12 @@ async def fetch_from_google_maps(category, city, api_key):
                 return []
             
             for place in data.get("results", [])[:15]:
-                place_id = place.get("place_id")
-                
-                # Get details
-                details_url = "https://maps.googleapis.com/maps/api/place/details/json"
-                try:
-                    details_resp = await http.get(details_url, params={
-                        "place_id": place_id,
-                        "fields": "name,formatted_address,formatted_phone_number,website,geometry",
-                        "key": api_key
-                    })
-                    details = details_resp.json().get("result", {})
-                    
-                    results.append({
-                        "business_name": details.get("name", place.get("name")),
-                        "address": details.get("formatted_address", place.get("formatted_address", "")),
-                        "phone": details.get("formatted_phone_number"),
-                        "website": details.get("website"),
+    results.append({
+        "business_name": place.get("name"),
+        "address": place.get("formatted_address", ""),
+        "phone": None,
+        "website": None,
+        "has_website": False,
                         "has_website": bool(details.get("website")),
                         "location": {
                             "lat": place.get("geometry", {}).get("location", {}).get("lat", 0),
@@ -685,3 +674,5 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+
