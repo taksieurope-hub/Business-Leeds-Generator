@@ -1,0 +1,23 @@
+.App {
+  min-height: 100vh;
+}
+
+/* Outfit font for headings */
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom button transitions */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* PayPal button container styling */
+.paypal-buttons {
+  width: 100% !important;
+}

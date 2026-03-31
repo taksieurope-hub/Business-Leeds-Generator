@@ -1,0 +1,167 @@
+{
+  "theme": "LIGHT",
+  "archetype": "4 (Swiss & High-Contrast)",
+  "emotional_tone": "Authoritative, Objective, Functional, High-Velocity",
+  "design_philosophy": "The Technical Control Room. This is a money-making tool for sales professionals. It must prioritize data density, rapid scanability, and aggressive clarity over decorative elements. Form follows function. Everything is aligned to a strict grid.",
+  "colors": {
+    "background": {
+      "primary": "bg-white",
+      "secondary": "bg-zinc-50",
+      "tertiary": "bg-zinc-100"
+    },
+    "text": {
+      "primary": "text-zinc-950",
+      "secondary": "text-zinc-600",
+      "muted": "text-zinc-400",
+      "inverse": "text-white"
+    },
+    "brand": {
+      "primary": "bg-zinc-950",
+      "primary_hover": "bg-zinc-800",
+      "accent": "bg-blue-600"
+    },
+    "status": {
+      "hot": {
+        "bg": "bg-red-50",
+        "text": "text-red-700",
+        "border": "border-red-200",
+        "indicator": "bg-red-500"
+      },
+      "warm": {
+        "bg": "bg-amber-50",
+        "text": "text-amber-700",
+        "border": "border-amber-200",
+        "indicator": "bg-amber-500"
+      },
+      "cold": {
+        "bg": "bg-zinc-100",
+        "text": "text-zinc-700",
+        "border": "border-zinc-300",
+        "indicator": "bg-zinc-400"
+      },
+      "closed": {
+        "bg": "bg-emerald-50",
+        "text": "text-emerald-700",
+        "border": "border-emerald-200",
+        "indicator": "bg-emerald-500"
+      }
+    },
+    "borders": {
+      "default": "border-zinc-200",
+      "focus": "ring-2 ring-zinc-950 ring-offset-2"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "heading": "font-sans (Configure to Work Sans or Chivo in CSS)",
+      "body": "font-sans (Configure to IBM Plex Sans or Manrope in CSS)",
+      "mono": "font-mono (IBM Plex Mono for data/numbers)"
+    },
+    "scales": {
+      "h1": "text-3xl sm:text-4xl tracking-tight font-semibold",
+      "h2": "text-2xl sm:text-3xl tracking-tight font-medium",
+      "h3": "text-xl sm:text-2xl tracking-tight font-medium",
+      "h4": "text-lg sm:text-xl font-medium",
+      "body": "text-sm sm:text-base leading-relaxed",
+      "small": "text-xs sm:text-sm text-zinc-600",
+      "overline": "text-[10px] sm:text-xs tracking-[0.2em] uppercase font-bold text-zinc-500"
+    }
+  },
+  "spacing_and_layout": {
+    "grid_system": "MODE B: THE CONTROL ROOM GRID",
+    "layout_rules": [
+      "Use base grid: grid-cols-1 md:grid-cols-3 lg:grid-cols-4 with gap-4 or gap-6",
+      "Widgets and cards must span specific columns and stretch to fill height (h-full).",
+      "Generous internal padding for cards: p-4 or p-6 to prevent border collision.",
+      "Mobile constraints: Ensure images/data tables do not overflow max-h-[80vh] on mobile.",
+      "Strict F-Pattern for data: Place the most critical action (Contact/Close) on the top/right, and the core metric (Score) on the left."
+    ]
+  },
+  "surfaces_and_components": {
+    "surface_strategy": "GRID BORDERS (The Technical Look)",
+    "rules": [
+      "Avoid floating soft shadows. Use sharp 1px borders (border border-zinc-200) for all cards and panels.",
+      "Card radius: Minimal (rounded-sm or rounded-md). Never use fully rounded pills for layout containers.",
+      "Backgrounds: Flat and solid. Avoid glassmorphism for this dashboard to maintain high readability of CRM data.",
+      "Data Density: Favor compact lists and tables over spaced-out masonry. Every pixel counts in a sales CRM."
+    ],
+    "components": {
+      "buttons": "Flat, zero shadow. Primary: bg-zinc-950 text-white rounded-sm. Secondary: bg-white border border-zinc-200 text-zinc-950 hover:bg-zinc-50.",
+      "badges": "Square or rounded-sm, high contrast text on light tinted backgrounds. Must have a 1px solid border matching the tint.",
+      "inputs": "Solid white background, 1px border-zinc-300, sharp focus rings (ring-zinc-950).",
+      "tables": "Minimalist. No vertical borders. Subtle horizontal borders (border-b border-zinc-100). Hover state on rows (hover:bg-zinc-50)."
+    }
+  },
+  "motion_and_interactions": {
+    "strategy": "Minimalist and Snappy",
+    "rules": [
+      "Hover states must be explicitly defined and affect text/icon color, not just background (e.g., hover:bg-zinc-900 hover:text-white).",
+      "Active/Click states: Slight scale down (active:scale-[0.98]) for buttons.",
+      "Transitions: Use short durations (duration-150) for a responsive, 'instant' feel.",
+      "Focus states: Absolute necessity for accessibility (focus-visible:ring-2 focus-visible:ring-zinc-950)."
+    ]
+  },
+  "icons_and_assets": {
+    "library": "@phosphor-icons/react",
+    "installation": "yarn add @phosphor-icons/react",
+    "style": "Regular or Light weight for dashboard density. Size: 16px to 20px for inline, 24px for headers."
+  },
+  "image_urls": [
+    {
+      "category": "empty_state_placeholder",
+      "url": "https://images.pexels.com/photos/3137072/pexels-photo-3137072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Abstract black and white architectural structure, used as a placeholder for missing website screenshots or abstract module empty states.",
+      "placement": "Website Audit Report placeholder, or Domain Finder background."
+    },
+    {
+      "category": "team_avatar_placeholder",
+      "url": "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxzdGFydHVwJTIwdGVhbXxlbnwwfHx8fDE3NzQ3MjQ4NjJ8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Startup team collaboration shot.",
+      "placement": "User profile avatar, or 'Contacting Team' visual in the outreach simulation."
+    },
+    {
+      "category": "demo_website_placeholder",
+      "url": "https://images.pexels.com/photos/7414216/pexels-photo-7414216.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Office brainstorming session.",
+      "placement": "Placeholder for 'Auto-generate demo website screenshots' feature when actual data is loading."
+    }
+  ],
+  "page_structures": {
+    "dashboard_view": {
+      "header": "Sticky header (bg-white border-b border-zinc-200) with Brand Logo, Date/Time, and 'Scan New Leads' primary CTA.",
+      "sidebar": "Narrow left sidebar (w-64) containing navigation (Dashboard, CRM Pipeline, Outbox, Settings) and Revenue Opportunity Calculator widget.",
+      "main_content": "A dense 'Leads List' (Grid Mode B). A table or grid of cards showing: Lead Name, Score (Hot/Warm/Cold badge), Website Status, Contact Buttons (Email/WhatsApp), and Pipeline Status dropdown."
+    },
+    "lead_detail_panel": {
+      "layout": "Right-side slide-out panel or expanded card view.",
+      "sections": [
+        "Header: Lead Name + Status Toggles",
+        "Website Audit Report: Grid of 4 small cards (SEO, Speed, Mobile, Features) with Red/Green indicators.",
+        "AI Pitch Generator: Text area with pre-filled 'Why they need a site' script and 'Regenerate' button.",
+        "Action Bar: 'Send One-Click Proposal', 'Send WhatsApp'."
+      ]
+    }
+  },
+  "component_rules": {
+    "shadcn_customizations": [
+      "Override default Shadcn card rounded-xl to rounded-md. Remove default box-shadow.",
+      "Override Shadcn Tabs: Use an underline indicator style instead of the default grey pill background to match the Swiss aesthetic.",
+      "Use Sonner for toast notifications, styled with square corners and high contrast colors.",
+      "Use Shadcn Badge but force border colors and explicit text colors for statuses."
+    ],
+    "forms_and_inputs": "Never use native HTML inputs. Always use Shadcn Input, Select, and Textarea with strict zinc border colors."
+  },
+  "accessibility": {
+    "contrast": "Ensure all text, including placeholders, meets APCA/WCAG standards. No light-grey-on-white text.",
+    "testing": "All interactive elements MUST include a data-testid attribute in kebab-case (e.g., data-testid='lead-contact-button', data-testid='status-dropdown')."
+  },
+  "instructions_to_main_agent": {
+    "1": "You are building a dense, high-contrast CRM dashboard. Prioritize alignment and data visibility over decorative elements.",
+    "2": "Strictly implement the Grid Borders design. Elements should look like a well-organized spreadsheet or control panel.",
+    "3": "Use pure HTML/Tailwind for structural bento-box layouts, and heavily customize Shadcn components for all interactive elements (Dropdowns, Inputs, Modals).",
+    "4": "DO NOT use Inter for headings. Use the sans font configuration and set up Work Sans or Chivo in your tailwind/CSS config.",
+    "5": "Do NOT ask the user for clarification. Use the provided dummy images for placeholders. Mock any backend features (like the domain scanner or AI generation) using visual loaders or static mocked data.",
+    "6": "Add data-testid to every button, link, and major UI section.",
+    "7": "Do not use 'transparent' backgrounds for overlay components or headers, always use a solid bg-white to prevent text collision."
+  }
+}
