@@ -971,7 +971,7 @@ async def startup_event():
     await db.users.create_index("email", unique=True)
     await db.assigned_leads.create_index([("user_id", 1), ("business_name", 1), ("address", 1)])
     await db.payments.create_index("user_id")
-await db.assigned_leads.create_index([("user_id", 1), ("lead_status", 1)])
+    await db.assigned_leads.create_index([("user_id", 1), ("lead_status", 1)])
     
     # Seed lifetime access users
     for email in LIFETIME_ACCESS_EMAILS:
