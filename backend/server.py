@@ -96,9 +96,9 @@ def generate_likely_email(business_name: str, website: str = None) -> str:
     return f"info@{clean_name}.com"
 
 # MongoDB connection
-mongo_url = os.environ['MONGO_URL']
+mongo_url = os.environ.get('MONGO_URL', '')
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db = client[os.environ.get('DB_NAME', 'leadgen')]
 
 # JWT Configuration
 JWT_ALGORITHM = "HS256"
@@ -968,3 +968,5 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+
+
