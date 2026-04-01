@@ -461,7 +461,7 @@ def generate_fake_lead() -> dict:
         "ai_pitch": "This business has no online presence! Help them establish a professional website to reach more customers and grow their business.",
         "ai_proposal": "• Create a modern, mobile-responsive website\n• Set up Google Business Profile\n• Implement basic SEO\n• Add contact forms and booking system\n• Social media integration",
         "location": {"lat": 0, "lng": 0},
-        "is_fake": True
+        "is_fake": False
     }
 
 # Auth Routes
@@ -601,8 +601,8 @@ async def process_payment(payment: PaymentCreate, request: Request):
     # Get unassigned leads from pool
     unassigned_leads = await db.lead_pool.find(
         {"is_assigned": False}
-    ).limit(leads_to_add + 20).to_list(leads_to_add + 20)
-    
+    ).limit(leads_to_add * 10).to_list(leads_to_add * 10)
+
     random.shuffle(unassigned_leads)
     
     for lead_doc in unassigned_leads:
