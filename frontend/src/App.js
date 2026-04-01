@@ -781,6 +781,8 @@ const DashboardPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searching, setSearching] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
+  const [leadsTotal, setLeadsTotal] = useState(0);
+  const [leadsSkip, setLeadsSkip] = useState(0);
 
   useEffect(() => {
     fetchData();
@@ -789,10 +791,11 @@ const DashboardPage = () => {
   const fetchData = async () => {
     try {
       const [leadsRes, statsRes] = await Promise.all([
-        axios.get(`${API}/leads?limit=10000`, { withCredentials: true }),
+        axios.get(`${API}/leads?limit=100`, { withCredentials: true }),
         axios.get(`${API}/stats`, { withCredentials: true })
       ]);
       setLeads(leadsRes.data.leads);
+      setLeadsTotal(leadsRes.data.total);
       setStats(statsRes.data);
     } catch (err) {
       console.error(err);
@@ -1013,6 +1016,7 @@ const updateLeadStatus = async (leadId, status) => {
         <div>
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-outfit text-2xl font-semibold">Your Leads</h3>
+            <span className="text-[#A1A1AA] text-sm">{leads.length} of {leadsTotal} loaded</span>
           </div>
           {/* Status Tabs */}
           <div className="flex gap-2 mb-6 flex-wrap">
@@ -1117,6 +1121,19 @@ const updateLeadStatus = async (leadId, status) => {
           )}
         </div>
       </div>
+{leads.length < leadsTotal && (
+            <button
+              onClick={async () => {
+                const newSkip = leadsSkip + 100;
+                const res = await axios.get(`${API}/leads?limit=50&skip=${newSkip}`, { withCredentials: true });
+                setLeads(prev => [...prev, ...res.data.leads]);
+                setLeadsSkip(newSkip);
+              }}
+              className="w-full mt-6 py-4 border border-white/20 hover:border-white/40 text-white rounded-md font-semibold transition-all"
+            >
+              Load More Leads
+            </button>
+          )}
 
       {/* Lead Detail Modal */}
       {selectedLead && (
