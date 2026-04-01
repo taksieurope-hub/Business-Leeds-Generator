@@ -1063,9 +1063,6 @@ const updateLeadStatus = async (leadId, status) => {
                       <div className="flex items-center gap-3 mb-2">
                         <Buildings weight="duotone" className="w-6 h-6 text-[#0055FF]" />
                         <h4 className="font-outfit text-lg font-semibold">{lead.business_name}</h4>
-                        {lead.is_fake && (
-                          <span className="mono-label text-xs bg-[#FFEA00]/20 text-[#FFEA00] px-2 py-0.5 rounded">SAMPLE</span>
-                        )}
                       </div>
                       <p className="text-[#A1A1AA] text-sm mb-2">{lead.address}</p>
                       <div className="flex flex-wrap gap-4 text-sm">
